@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lordpad</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+ 
+    <div class="container">
+        
+        <div class="sidebar">
+             <div class="name">
+                     <h1 >Lord Pad</h1>
+                </div>
+                <div class="min_sidebar">
+            <button class="add-btn" id="createNewNote">Create note</button>
+            <div id="noteList"></div>
+        </div>
+        </div>
+        <div class="main-editor">
+           <div class="toolbar">
+               
+                <input type="text" id="noteTitle" autocomplete="off" placeholder="Untitled">
+                <div class="actions">
+                     <button class="btn" id="saveNote">Save</button>
+                    <button class="btn" id="deleteNote">Delete</button>
+                </div>
+            </div>
+            <textarea  id="noteInput" placeholder="Lord over your words..."></textarea>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
