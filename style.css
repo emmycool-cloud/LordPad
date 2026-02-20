@@ -120,11 +120,12 @@ h1:hover{
 .note-item:hover{
     transform: scale(1.1);
 }
-.note-item.active{
-    transform: scale(1,);
+.note-item.active {
+    transform: scale(1);
     font-weight: bold;
     border-left: 4px solid var(--primary-blue);
     border-right: 4px solid var(--primary-blue);
+    
 }
 
 .main-editor {
@@ -271,7 +272,7 @@ h1:hover{
     .name{
         position: sticky;
         top: 0px;
-        height: 15vh;
+        height: 9vh;
         z-index: 10;
     }
     h1{
