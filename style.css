@@ -1,4 +1,5 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@600&display=swap');
 :root {
     --primary-blue: #4dc3ff;
     --primary-green: #226b2c;
@@ -25,28 +26,63 @@ body {
     overflow: hidden;
     overflow-y: auto;
 }
-.name{
-    padding:5px;
+.name {
+    padding: 10px 5px;
     border-bottom: 2px solid var(--border-color);
     background: var(--sidebar-bg);
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative; /* Needed for the pointed parts */
+    overflow: hidden;
 }
-h1{
-    font-size: clamp(20px, 2.5vw, 36px);
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.3vw;
+
+/* Creating the pointed glow effect on the sides */
+.name::before, .name::after {
+    content: "";
+    position: absolute;
+    top: 15%;
+    bottom: 15%;
+    width: 12px; /* How thick the point is */
+    background: var(--primary-blue);
+    box-shadow: 0 0 15px var(--primary-blue);
+    transition: all 0.4s ease;
+}
+
+/* The Left Point - pointing right */
+.name::before {
+    left: 0;
+    clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
+}
+
+/* The Right Point - pointing left */
+.name::after {
+    right: 0;
+    clip-path: polygon(100% 0%, 0% 50%, 100% 100%);
+}
+
+/* Hover effect: The points "stab" inward slightly */
+.name:hover::before { transform: translateX(5px); }
+.name:hover::after { transform: translateX(-5px); }
+
+.name:hover {
+    box-shadow: inset 0 0 20px rgba(77, 195, 255, 0.1);
+}
+h1 {
+    font-size: clamp(24px, 2.5vw, 36px);
+    font-weight: 600;
+    text-transform: capitalize;
+    letter-spacing: 2px;
     white-space: nowrap;
-    background: linear-gradient(135deg, var(--primary-blue),#a29bfe);
+    background: linear-gradient(135deg, var(--primary-blue), #a29bfe);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    
     filter: drop-shadow(0 0 8px rgba(77, 195, 255, 0.4));
     transition: all 0.4s ease;
     cursor: default;
-    user-select: text;
-
+    user-select: none;
+    font-family: 'Outfit', sans-serif;
 }
 h1:hover{
     filter: drop-shadow(0 0 0px var(--primary-blue));
