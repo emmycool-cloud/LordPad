@@ -1,7 +1,7 @@
- Lord Pad
-Lord Pad  is a clean, simple note-taking app designed to stay out of your way so you can focus on writing.
+ Insight
+Insight  is a clean, simple note-taking app designed to stay out of your way so you can focus on writing.
 ---
-Why Use Lord Pad:
+Why Use Insight:
 
 * No Messy Duplicates: You can change a note's title 100 times, and it won't create 100 copies. It just updates the same note.
 
