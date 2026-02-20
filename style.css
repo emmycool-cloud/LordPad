@@ -296,7 +296,7 @@ h1:hover{
     .sidebar{
         width: 100%;
         max-width: 700px;
-        height: 25vh;
+        height: 35vh;
         border-right: none;
         border-bottom: 1px solid var(--border-color);
         margin: auto;
