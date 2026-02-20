@@ -28,40 +28,41 @@ body {
 }
 .name {
     padding: 10px 5px;
+    height: 8vh;
     border-bottom: 2px solid var(--border-color);
     background: var(--sidebar-bg);
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative; /* Needed for the pointed parts */
+    position: relative; 
     overflow: hidden;
 }
 
-/* Creating the pointed glow effect on the sides */
+
 .name::before, .name::after {
     content: "";
     position: absolute;
     top: 15%;
     bottom: 15%;
-    width: 12px; /* How thick the point is */
+    width: 12px; 
     background: var(--primary-blue);
     box-shadow: 0 0 15px var(--primary-blue);
     transition: all 0.4s ease;
 }
 
-/* The Left Point - pointing right */
+
 .name::before {
     left: 0;
     clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
 }
 
-/* The Right Point - pointing left */
+
 .name::after {
     right: 0;
     clip-path: polygon(100% 0%, 0% 50%, 100% 100%);
 }
 
-/* Hover effect: The points "stab" inward slightly */
+
 .name:hover::before { transform: translateX(5px); }
 .name:hover::after { transform: translateX(-5px); }
 
