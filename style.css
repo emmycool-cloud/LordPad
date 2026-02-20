@@ -27,7 +27,7 @@ body {
     overflow-y: auto;
 }
 .name {
-    padding: 10px 5px;
+    padding: 5px 5px;
     height: 8vh;
     border-bottom: 2px solid var(--border-color);
     background: var(--sidebar-bg);
