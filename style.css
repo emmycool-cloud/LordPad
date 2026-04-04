@@ -4,6 +4,7 @@
     --primary-blue: #4dc3ff;
     --primary-green: #226b2c;
     --danger-red: #ff5e5e;
+    --dark-blue: #016ca1;
     --dark-bg: #1e1e1e;
     --sidebar-bg: #1e1e1e;
     --text-white: #f5f5f5;
@@ -187,6 +188,7 @@ h1:hover{
     width: 90%;
     transition: width 0.2s ease;
 }
+
 #noteTitle {
     font-size: clamp(28px, 2.2vw, 32px);
     width: 90%;
@@ -252,10 +254,13 @@ h1:hover{
     font-size:clamp(14px, 1.2vw, 18px) ;
     line-height: 1.6;
     width: 90%;
-    margin:20px auto;
+    margin:auto;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    
     resize: none;
     outline: none;
-    transition: all 0.3s ease;
+    transition:  1s;
     scrollbar-gutter: stable;
     padding-right: 10px;
 }
@@ -270,6 +275,25 @@ h1:hover{
 #noteInput:focus {
     border-color: var(--primary-blue) !important;
     box-shadow: 0 0 15px var(--glow-shadow) !important;
+}
+.numWordCon{
+    width: 100%;
+    display: flex;
+     transition: 2s;
+}
+.numWord{
+    width: auto;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    background: rgba(8, 151, 223, 0.2);
+    color: var(--text-white);
+    margin-bottom: 10px;
+    border: 1px solid rgba(77, 195, 255, 0.2) ;
+    text-align: center;
+    padding: 0.1rem 0.2rem ;
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: 4%;
+   
 }
 ::-webkit-scrollbar{
     width: 6px !important;
@@ -357,4 +381,16 @@ h1:hover{
         margin: auto;
         margin-bottom: 5px;
     }
+    .numWord{
+    width: auto;
+    background: rgba(8, 151, 223, 0.2);
+    color: var(--text-white);
+    margin-bottom: 5px;
+    border: 1px solid rgba(77, 195, 255, 0.2) ;
+    text-align: center;
+    border-radius: 10px;
+   padding: 0.1rem 0.2rem ;
+    margin-left: auto;
+    margin-right: 5%;
+}
 }

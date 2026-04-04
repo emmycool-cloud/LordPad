@@ -39,6 +39,7 @@ const loadNotes = () => {
 
         listContainer.appendChild(div)
     })
+    wordCount()
 }
 
 
@@ -98,7 +99,7 @@ const deleteNote = () =>{
     const noteTitle= document.getElementById("noteTitle").value.trim();
     
     if(!noteBeingEdited){
-        alert(`please selecte a note first`);return;
+        alert(`please select a note first`);return;
     }
     const storageKey =`note_${noteBeingEdited}`;
 
@@ -127,4 +128,39 @@ document.addEventListener('DOMContentLoaded',() =>{
     loadNotes()
 })
 
+const wordCount = () =>{
+    const noteInput =  document.getElementById("noteInput"); 
+    const numWordCon = document.getElementById("numWordCon");
+    
+    const word = noteInput.value.trim();
+   let words = word.split(/\s+/).filter(word => word.length > 0).length;
+   if (words === 0){
+                numWordCon.style.display = "none"
+   }
+   else {
+                 numWordCon.style.display = "flex"
+                 noteInput.style.marginBottom ="10px"
+   }
+
+   if (words < 2){
+                if (noteInput == 0){
+         document.getElementById('numWord').innerText = `0 word`
+   }
+  else {
+        document.getElementById('numWord').innerText = `${words} word`
+  }
+   }
+   else{
+     if (noteInput === 0){
+         document.getElementById('numWord').innerText = `0 words`
+   }
+  else {
+        document.getElementById('numWord').innerText = `${words} words`
+  }
+   }
+   
+   console.log(`number count working`)
+
+}
+noteInput.addEventListener('input',wordCount)
 
