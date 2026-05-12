@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@600&display=swap');
 :root {
     --primary-blue: #4dc3ff;
-    --primary-green: #226b2c;
+    --primary-green: #39c940;
     --danger-red: #ff5e5e;
     --dark-blue: #016ca1;
     --dark-bg: #1e1e1e;
@@ -10,6 +10,70 @@
     --text-white: #f5f5f5;
     --border-color: #333333;
     --glow-shadow: rgba(77, 195, 255, 0.3);
+}
+
+@font-face {
+    font-family: 'Outfit';
+    src: url('./fonts/Outfit-Regular.ttf') format('truetype');
+    font-weight: 400;
+}
+@font-face {
+    font-family: 'Outfit';
+    src: url('./fonts/Outfit-Bold.ttf') format('truetype');
+    font-weight: 600;
+}
+
+
+@font-face {
+    font-family: 'Inter';
+    src: url('./fonts/Inter_18pt-Regular.ttf') format('truetype');
+    font-weight: 400;
+}
+@font-face {
+    font-family: 'Inter';
+    src: url('./fonts/Inter_18pt-Bold.ttf') format('truetype');
+    font-weight: 700;
+}
+
+
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('./fonts/JetBrainsMono-Regular.ttf') format('truetype');
+    font-weight: 400;
+}
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('./fonts/JetBrainsMono-Bold.ttf') format('truetype');
+    font-weight: 700;
+}
+
+
+@font-face {
+    font-family: 'Space Grotesk';
+    src: url('./fonts/SpaceGrotesk-Regular.ttf') format('truetype');
+    font-weight: 400;
+}
+@font-face {
+    font-family: 'Space Grotesk';
+    src: url('./fonts/SpaceGrotesk-Bold.ttf') format('truetype');
+    font-weight: 700;
+}
+
+
+@font-face {
+    font-family: 'Montserrat-Regular';
+    src: url('./fonts/Montserrat-Regular.ttf') format('truetype');
+    font-weight: 400;
+}
+
+
+@font-face {
+    font-family: 'Aboreto';
+    src: url('./fonts/Aboreto-Regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Michroma';
+    src: url('./fonts/Michroma-Regular.ttf') format('truetype');
 }
 
 * {
@@ -149,7 +213,8 @@ h1:hover{
     border-radius: 6px;
     color: var(--text-white);
     cursor: pointer;
-    font-size: 14px;
+    font-size: 1rem;
+    word-wrap:break-word;
     width: 80%;
     margin: auto;
     margin-bottom: 8px;
@@ -313,6 +378,7 @@ h1:hover{
     scrollbar-width: thin;
     scrollbar-color: #444 var(--dark-bg);
 }
+
  @media screen and (max-width: 650px) {
     .container{
         flex-direction: column;

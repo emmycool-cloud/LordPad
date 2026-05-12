@@ -12,7 +12,7 @@ Why Use Insight:
 *localStorage. This means your data never leaves your device.
 ---
  How to use it:
-1.  New Note: Click creat Note to clear the screen and start fresh.
+1.  New Note: Click create Note to clear the screen and start fresh.
 2.  Save: Enter a title and your text, then hit "Save."
 3.  Edit: Click any note in the sidebar to open it. Changes you save will overwrite the old version—no clones!
 4.  Delete: Click Delete to remove a note forever (don't worry, it asks for confirmation first).

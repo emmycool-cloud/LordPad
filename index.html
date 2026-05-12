@@ -3,41 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500&display=swap" rel="stylesheet">
     <title>Insights</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="modal.css">
 </head>
- 
+<body> 
     <div class="container">
-        
         <div class="sidebar">
-             <div class="name">
-                     <h1 >Insights</h1>
-                </div>
-                <div class="min_sidebar">
-            <button class="add-btn" id="createNewNote">Create note</button>
-            <div id="noteList"></div>
+            <div class="name">
+                <h1>Insights</h1>
+            </div>
+            <div class="min_sidebar">
+                <button class="add-btn" id="createNewNote">Create note</button>
+                <div id="noteList"></div>
+            </div>
         </div>
-        </div>
+
         <div class="main-editor">
-           <div class="toolbar">
-               
+            <div class="toolbar">
                 <input type="text" id="noteTitle" autocomplete="off" placeholder="Untitled">
-                 
                 <div class="actions">
-                     <button class="btn" id="saveNote">Save</button>
+                    <button class="btn" id="saveNote">Save</button>
                     <button class="btn" id="deleteNote">Delete</button>
                 </div>
             </div>
             <textarea  id="noteInput" placeholder="Focus on your thoughts..."></textarea>
-             <div class="numWordCon" id="numWordCon">
-            <p class="numWord" id="numWord"> 0 Words</p>
+            <div class="numWordCon" id="numWordCon">
+                <p class="numWord" id="numWord"> 0 Words</p>
+            </div>
         </div>
-        </div>
-       
     </div>
+
+<div class="modal" id="modal"> 
+    <div class="cre_modal" id="cre_modal">
+        <h3 class="create"> 
+            Creating a new note!<br>
+            Type in your title and content, then hit save
+        </h3>
+        <div class="cre_button_modal">
+            <button class="cancel_button" >Cancel</button>
+            <button class="cre_button" id="cre_button">Create</button>
+        </div>
+    </div> 
+    <div class="sav_modal" id="sav_modal">
+        <h3  class="save">Save note?</h3>
+        <div class="sav_button_modal">
+            <button class="cancel_button" >Cancel</button>
+            <button class="sav_button" id="confirm_save">Save</button>
+        </div>
+    </div>    
+    
+    <!-- Delete Modal -->
+    <div class="del_modal" id="del_modal">
+        <h3 class="delete">Delete note?</h3>
+        <div class="del_button_modal">
+            <button class="cancel_button" >Cancel</button>
+            <button class="del_button" id="confirm_delete">Delete</button>
+        </div>
+    </div>    
+    <div class="error_modal" id="error_modal">
+         <h3 class="error" id="error"></h3>
+        <div class="error_button_modal">
+            <button class="error_button" id="error_button" >Okay</button>
+        </div>    
+    </div>
+     <div class="done_modal" id="done_modal">
+        <h3 class="done_check" id="done">✅</h3>
+         <h3 class="done" id="done">Done!</h3></div>            
+    </div>
+</div>
     <script src="script.js"></script>
 </body>
 </html>

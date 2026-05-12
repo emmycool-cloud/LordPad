@@ -1,166 +1,278 @@
-const noteTitle = document.getElementById("noteTitle");
+const noteTitleInput = document.getElementById("noteTitle");
 const noteInput = document.getElementById("noteInput");
 const noteList = document.getElementById("noteList");
-const addButton = document.getElementById("createNewNote");
+const createNote = document.getElementById("createNewNote");
 const saveButton = document.getElementById("saveNote");
 const deleteButton = document.getElementById("deleteNote");
+const modal = document.getElementById("modal");
+const cancelButton = document.querySelectorAll(".cancel_button");
+const createModal = document.getElementById("cre_modal");
+const createButton = document.getElementById("cre_button");
+const deleteModal = document.getElementById("del_modal");
+const deleteConfirmationButton = document.getElementById("confirm_delete");
+const saveBut = document.getElementById("confirm_save");
+const saveModal = document.getElementById("sav_modal");
+const errorModal = document.getElementById("error_modal");
+const errorButton = document.getElementById("error_button");
+let errorFiller = document.getElementById("error");
+let done = document.getElementById("done_modal");
+   
 let noteBeingEdited = null;
-console.log(`start`);
+    console.log(`start`);
 
 const loadNotes = () => {
-    const listContainer = document.getElementById("noteList");
-    listContainer.innerHTML = "";
-    let tempArray = [];
+      noteList.innerHTML = "";
+      let tempArray = [];
 
-    for(let i=0;i<localStorage.length;i++ ){
-        const getKey =localStorage.key(i);
-        if(getKey.startsWith("note_")){
-            const data = JSON.parse(localStorage.getItem(getKey));
-            tempArray.push(data);
+      for(let i = 0; i < localStorage.length; i++ ) {
+            const getKey = localStorage.key(i);
+            if(getKey.startsWith("note_")) {
+                const data = JSON.parse(localStorage.getItem(getKey));
+                tempArray.push(data);
+            }
+
         }
 
+      tempArray.sort((a,b) => (b.time || 0) - (a.time || 0))
+
+      tempArray.forEach(note => {
+            const div = document.createElement("button");
+            div.className = "note-item";
+
+            if(note.time === noteBeingEdited) {
+                div.classList.add("active")
+            }
+            div.innerText = note.title
+
+            div.onclick = () => {
+                noteTitleInput.value = note.title;
+                noteInput.value = note.body;
+                noteBeingEdited = note.time
+                loadNotes()
+            }
+
+            noteList.appendChild(div)
+       })
+       wordCount()
     }
-    tempArray.sort((a,b) => (b.time || 0) - (a.time || 0))
-
-    tempArray.forEach(note =>{
-        const div = document.createElement("button");
-        div.className = "note-item";
-        if(note.time === noteBeingEdited) {
-            div.classList.add("active")
-        }
-        div.innerText = note.title
-
-        div.onclick = () => {
-            document.getElementById("noteTitle").value = note.title;
-            document.getElementById("noteInput").value = note.body;
-            noteBeingEdited = note.time
-            loadNotes()
-        }
-
-        listContainer.appendChild(div)
-    })
-    wordCount()
-}
 
 
 const saveNote = () =>{
-    const noteTitle = document.getElementById("noteTitle").value;
-    const noteBody = document.getElementById("noteInput").value;
-   let updatedNoteTitle = noteTitle.trim()
-  for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        if (key.startsWith("note_")) {
-            const existingNote = JSON.parse(localStorage.getItem(key));
-            // If the title matches AND it's not the note we are currently editing
-            if (existingNote.title.toLowerCase() === noteTitle.toLowerCase() &&
-                existingNote.time !== noteBeingEdited) {
-                    console.log(`A note with this title already exists!`)
-                alert("A note with this title already exists!");
-                   return;
-                
+      const noteBody =noteInput.value;
+      const updatedNoteTitle = noteTitleInput.value.trim();
+
+      errorFiller.innerText = ``;
+
+      if(!updatedNoteTitle) {
+            errorFiller.innerText = `you cannot save a note without a title!`;
+            modal.classList.add("modal_active");
+            errorModal.classList.add("error_modal_active");         
+            return;
         }
-    }
+
+      if(!noteBody) {
+            errorFiller.innerText = `you cannot save an empty note!`;
+            modal.classList.add("modal_active");
+            errorModal.classList.add("error_modal_active");
+            return;
+        }
+     
+      if( updatedNoteTitle.length > 50) {
+            errorFiller.innerText = `Note title is too long`;
+            modal.classList.add("modal_active");
+            errorModal.classList.add("error_modal_active");return;    
+        }
+      
+         
+            for(let i = 0; i < localStorage.length; i++) {
+                 const key = localStorage.key(i);
+        
+                 if (key.startsWith("note_")) {
+                      const existingNote = JSON.parse(localStorage.getItem(key));
+                      // If the title matches AND it's not the note we are currently editing
+                      if (existingNote.title.toLowerCase() === updatedNoteTitle.toLowerCase() && existingNote.time !== noteBeingEdited) {
+                          errorFiller.innerText = `Note with this title already exist!`;
+                          modal.classList.add("modal_active");
+                          errorModal.classList.add("error_modal_active");
+                          return;
+                        }
+                    }
+                } 
+         
+           modal.classList.add("modal_active");
+            saveModal.classList.add("sav_modal_active");
+            console.log(`save note is working`);
+        }
+saveButton.addEventListener('click',saveNote);
+
+
+saveBut.addEventListener('click',() => {
+        const noteBody =noteInput.value;
+        const updatedNoteTitle = noteTitleInput.value.trim();
+
+        if(!noteBeingEdited) {
+            noteBeingEdited = Date.now();
+        }
+
+        const noteContent = {
+                title:updatedNoteTitle,
+                body:noteBody,
+                time: noteBeingEdited
+        };
+
+        const storageKey = `note_${noteBeingEdited}`;
+        localStorage.setItem(storageKey, JSON.stringify(noteContent));
+
+         
+          saveModal.classList.remove("sav_modal_active");
+
+            loadNotes();
+            console.log(`note saved`);
+            
+             done.classList.add("done_modal_active");
+
+            setTimeout(()=>{
+                done.classList.remove("done_modal_active");
+                 setTimeout(()=>{
+                 modal.classList.remove("modal_active");
+                 loadNotes();
+            },300)
+            },1200)
+}) 
+    
+
+
+
+const createNoteModal = () =>{
+      modal.classList.add("modal_active");
+      createModal.classList.add("cre_modal_active");
 }
-     if(!noteTitle){
-         alert(`you can not save an Untitled note`);return
-     }
-     else if(!noteTitle && !noteBody){
-         alert(`you cannot save an empty note`);return
-     }
-     if(!noteBeingEdited){
-        noteBeingEdited = Date.now();
-     }
-    const noteContent = {
-        title:noteTitle,
-        body:noteBody,
-        time: noteBeingEdited
-    };
-    const storageKey = `note_${noteBeingEdited}`;
-    localStorage.setItem(storageKey, JSON.stringify(noteContent))
-alert(`${updatedNoteTitle} is saved`);
-loadNotes();
-}
 
-
-const addNote = () =>{
-     alert(`Creating a new note! Type in your title and content, then hit save`);
-noteBeingEdited = null;
-noteTitle.value = "";
-noteInput.value =""; 
-noteTitle.focus()  
-console.log(`Note ready`)
-   loadNotes();
-
-}
-
-
+createButton.addEventListener('click',()=>{
+        modal.classList.remove("modal_active");
+        createModal.classList.remove("cre_modal_active");
+        noteBeingEdited = null;
+        noteTitleInput.value = "";
+        noteInput.value =""; 
+        noteTitleInput.focus()  
+        console.log(`Note ready`)
+        loadNotes();
+   })
+createNote.addEventListener('click',createNoteModal);
 
 const deleteNote = () =>{
-    const noteTitle= document.getElementById("noteTitle").value.trim();
-    
-    if(!noteBeingEdited){
-        alert(`please select a note first`);return;
-    }
-    const storageKey =`note_${noteBeingEdited}`;
+      errorFiller.innerText = ``;
+      const storageKey =`note_${noteBeingEdited}`;
 
-    if(localStorage.getItem(storageKey) === null){
-        alert(`note not found in storage`);return;
-    }
+      if(!noteBeingEdited) {
+            errorFiller.innerText = `please select a note first!`;
+            modal.classList.add("modal_active");
+            errorModal.classList.add("error_modal_active");
+            return;
+        }
+      if(localStorage.getItem(storageKey) === null) {
+            errorFiller.innerText = `note not found in storage!`
+            modal.classList.add("modal_active");
+            errorModal.classList.add("error_modal_active");
+            ;return;  
+        }
 
-    if(confirm(`Delete "${noteTitle}"?`)){
+      modal.classList.add("modal_active");
+      deleteModal.classList.add("del_modal_active");
+      console.log(`delModal is working`);  
+    }
+ 
+deleteConfirmationButton.addEventListener('click', () => {  
+        const storageKey =`note_${noteBeingEdited}`;
         localStorage.removeItem(storageKey);
-         document.getElementById("noteTitle").value ="";
-        document.getElementById("noteInput").value = "";
-        noteBeingEdited = null
-        loadNotes()
+        noteTitleInput.value ="";
+        noteInput.value = "";
+        noteBeingEdited = null;
+        console.log(`delbutton is working`);
+        deleteModal.classList.remove("del_modal_active");
+         done.classList.add("done_modal_active");
+
+            setTimeout(()=>{
+                done.classList.remove("done_modal_active");
+                 setTimeout(()=>{
+                 modal.classList.remove("modal_active");
+                 loadNotes();
+            },300)
+            },1200)
+        loadNotes();
+   })  
+deleteButton.addEventListener('click',deleteNote);
+
+cancelButton.forEach((btn) =>{
+    setTimeout(()=>{
+        console.log(`closing modal`);
+        btn.addEventListener('click',() => {
+               deleteModal.classList.remove("del_modal_active");
+                createModal.classList.remove("cre_modal_active");
+                saveModal.classList.remove("sav_modal_active");
+                 errorModal.classList.remove("error_modal_active");  
+                 modal.classList.remove("modal_active");         
+                loadNotes()
+        })
+        },300)
+    
+    })
+    
+const wordCount = () =>{
+      const noteInput =  document.getElementById("noteInput"); 
+      const numWordCon = document.getElementById("numWordCon");
+    
+      const word = noteInput.value.trim();
+      
+      let words = word.split(/\s+/).filter(word => word.length > 0).length;
+      if (words === 0 ) {
+            numWordCon.style.display = "none"
+       }
+
+      else {
+            numWordCon.style.display = "flex"
+            noteInput.style.marginBottom ="10px"
+        }
+
+      if (words < 2) {
+            if (noteInput == 0){
+                    document.getElementById('numWord').innerText = `0 word`
+            }
+
+            else {
+                    document.getElementById('numWord').innerText = `${words} word`
+            }
+        }
+      else {
+            if (noteInput === 0){
+                    document.getElementById('numWord').innerText = `0 words`
+            }
+
+            else {
+                    document.getElementById('numWord').innerText = `${words} words`
+                }
+        }
+   
+        console.log(`number count working`)
+
     }
 
-}
-
-
-
-
-document.addEventListener('DOMContentLoaded',() =>{
-    
-    saveButton.addEventListener('click',saveNote)
-    deleteButton.addEventListener('click',deleteNote)
-    addButton.addEventListener('click',addNote)
-    loadNotes()
-})
-
-const wordCount = () =>{
-    const noteInput =  document.getElementById("noteInput"); 
-    const numWordCon = document.getElementById("numWordCon");
-    
-    const word = noteInput.value.trim();
-   let words = word.split(/\s+/).filter(word => word.length > 0).length;
-   if (words === 0){
-                numWordCon.style.display = "none"
-   }
-   else {
-                 numWordCon.style.display = "flex"
-                 noteInput.style.marginBottom ="10px"
-   }
-
-   if (words < 2){
-                if (noteInput == 0){
-         document.getElementById('numWord').innerText = `0 word`
-   }
-  else {
-        document.getElementById('numWord').innerText = `${words} word`
-  }
-   }
-   else{
-     if (noteInput === 0){
-         document.getElementById('numWord').innerText = `0 words`
-   }
-  else {
-        document.getElementById('numWord').innerText = `${words} words`
-  }
-   }
-   
-   console.log(`number count working`)
-
-}
 noteInput.addEventListener('input',wordCount)
+
+setTimeout(()=>{
+errorButton.addEventListener('click',() => {
+        deleteModal.classList.remove("del_modal_active");
+        createModal.classList.remove("cre_modal_active");
+        saveModal.classList.remove("sav_modal_active");
+        errorModal.classList.remove("error_modal_active");
+         modal.classList.remove("modal_active");         
+        loadNotes()
+    })
+    },300)
+
+const fadeOut = (activeClass) =>{
+    activeClass.classList.add()
+}
+ document.addEventListener('DOMContentLoaded',loadNotes)
+
 
